@@ -1,5 +1,4 @@
 #!/usr/bin/python3
 for i in range(26):
-    if chr(ord('a') + i) != 'q' and chr(ord('a') + i) != 'e':
-        print("{}".format(chr(ord('a') + i)), end="")
-print("")
+    if 97 + i != ord('q') and 97 + i != ord('e'):
+        print("{:c}".format(97 + i), end="")
