@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import sys
+
+
 def safe_function(fct, *args):
     """Execute a function safely and return its result.
 
