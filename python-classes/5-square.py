@@ -46,7 +46,7 @@ class Square:
             int: The area of the square (size multiplied by size).
         """
         return self.__size * self.__size
-    
+
     def my_print(self):
         """Print the square in stdout using the character '#'.
 
