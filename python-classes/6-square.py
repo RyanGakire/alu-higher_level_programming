@@ -82,7 +82,9 @@ class Square:
     def my_print(self):
         """Print the square in stdout using the character '#'.
 
-        Uses the position to add blank lines above the square and spaces to the left of the square. If the size is 0, an empty line is printed.
+        Uses the position to add blank lines above the square and
+        spaces to the left of the square. If the size is 0, an
+        empty line is printed.
         """
         if self.__size == 0:
             print()
