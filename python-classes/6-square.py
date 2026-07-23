@@ -90,4 +90,5 @@ class Square:
         for blank_row in range(self.__position[1]):
             print()
         for row in range(self.__size):
+            :wq
             print(" " * self.__position[0] + "#" * self.__size)
