@@ -35,20 +35,20 @@ class Square:
             TypeError: If value is not an integer.
             ValueError: If value is less than 0.
         """
-        if type(value is not int:
+        if type(value) is not int:
                 raise TypeError("size must be an integer")
 
         if value < 0:
             raise ValueError("size must be >= 0")
-            self.__size = value
+        self.__size = value
 
     @property
     def position(self):
-    """Get the current position of the square.
+        """Get the current position of the square.
 
-    Returns:
-        tuple: The (x, y) position of the square.
-    """
+        Returns:
+            tuple: The (x, y) position of the square.
+        """
     return self.__position
 
     @position.setter
@@ -62,7 +62,7 @@ class Square:
             TypeError: If value is not a tuple of 2 positive integers.
         """
         if type(value) is not tuple:
-            raise TypeError("position must be tuple of 2 positive integers")
+            raise TypeError("position must be a tuple of 2 positive integers")
         if len(value) != 2:
             raise TypeError("position must be a tuple of 2 positive integers")
         if type(value[0]) is not int or type(value[1]) is not int:
@@ -90,5 +90,4 @@ class Square:
         for blank_row in range(self.__position[1]):
             print()
         for row in range(self.__size):
-            :wq
             print(" " * self.__position[0] + "#" * self.__size)
