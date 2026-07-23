@@ -49,7 +49,7 @@ class Square:
         Returns:
             tuple: The (x, y) position of the square.
         """
-    return self.__position
+        return self.__position
 
     @position.setter
     def position(self, value):
