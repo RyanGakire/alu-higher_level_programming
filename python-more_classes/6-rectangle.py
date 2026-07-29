@@ -101,7 +101,7 @@ class Rectangle:
             str: The rectangle drawn with the character '#', or an
                 empty string if width or height is 0.
         """
-        if self.__width == 0 or self.__height == 0
+        if self.__width == 0 or self.__height == 0:
             return ""
         rows = []
         for row in range(self.__height):
