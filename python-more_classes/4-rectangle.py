@@ -66,7 +66,7 @@ class Rectangle:
         if value < 0:
             raise ValueError("height must be >= 0")
         self.__height = value
-    
+
     def __str__(self):
         """Return the printable string representation of the rectangle.
 
@@ -79,7 +79,7 @@ class Rectangle:
         rows = []
         for row in range(self.__height):
             rows.append("#" * self.__width)
-        return "\n".join(rows)    
+        return "\n".join(rows)
 
     def __repr__(self):
         """Return a string representation that can recreate the rectangle.
