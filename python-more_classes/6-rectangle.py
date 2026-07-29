@@ -63,7 +63,7 @@ class Rectangle:
         """Set the height of the rectangle.
 
         Args:
-            value (int): The new height of the rectangle/
+            value (int): The new height of the rectangle
 
         Raises:
             TypeError: If value is not an integer.
