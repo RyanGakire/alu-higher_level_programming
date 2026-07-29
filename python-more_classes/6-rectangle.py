@@ -28,7 +28,7 @@ class Rectangle:
         """Get the current width of the rectangle.
 
         Returns:
-            int: The wifth of the rectange.
+            int: The width of the rectange.
         """
         return self.__width
 
@@ -67,7 +67,7 @@ class Rectangle:
 
         Raises:
             TypeError: If value is not an integer.
-            ValueErrorL If value is less than 0.
+            ValueError: If value is less than 0.
         """
         if type(value) is not int:
             raise TypeError("height must be an integer")
