@@ -66,7 +66,7 @@ class Rectangle:
         if value < 0:
             raise ValueError("height must be >= 0")
         self.__height = value
-    
+
     def area(self):
         """Return the current area of the rectangle.
 
@@ -85,7 +85,7 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return 0
         return (self.__width + self.__height) * 2
-    
+
     def __str__(self):
         """Return the printable string representation of the rectangle.
 
@@ -99,7 +99,7 @@ class Rectangle:
         for row in range(self.__height):
             rows.append("#" * self.__width)
         return "\n".join(rows)
-    
+
     def __repr__(self):
         """Return a string representation that can recreate the rectangle.
 
@@ -108,7 +108,7 @@ class Rectangle:
                 Rectangle instance with the same width and height.
         """
         return "Rectangle({}, {})".format(self.__width, self.__height)
-    
+
     def __del__(self):
         """Print a message when a Rectangle instance is deleted."""
         print("Bye rectangle...")
