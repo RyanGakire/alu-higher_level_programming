@@ -1,0 +1,97 @@
+The ``7-base_geometry`` module
+==============================
+
+Importing the class
+-------------------
+
+    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+    >>> bg = BaseGeometry()
+
+Using ``area``
+--------------
+
+``area`` is not implemented in the base class:
+
+    >>> bg.area()
+    Traceback (most recent call last):
+    Exception: area() is not implemented
+
+Using ``integer_validator``
+---------------------------
+
+A positive integer passes and returns nothing:
+
+    >>> bg.integer_validator("my_int", 12)
+    >>> print(bg.integer_validator("width", 89))
+    None
+
+A string is not an integer:
+
+    >>> bg.integer_validator("name", "John")
+    Traceback (most recent call last):
+    TypeError: name must be an integer
+
+Zero is not greater than 0:
+
+    >>> bg.integer_validator("age", 0)
+    Traceback (most recent call last):
+    ValueError: age must be greater than 0
+
+A negative number is refused as well:
+
+    >>> bg.integer_validator("distance", -4)
+    Traceback (most recent call last):
+    ValueError: distance must be greater than 0
+
+Other types that are refused
+----------------------------
+
+A boolean is not accepted:
+
+    >>> bg.integer_validator("flag", True)
+    Traceback (most recent call last):
+    TypeError: flag must be an integer
+
+A float is not accepted, even a whole one:
+
+    >>> bg.integer_validator("size", 4.5)
+    Traceback (most recent call last):
+    TypeError: size must be an integer
+
+    >>> bg.integer_validator("size", 4.0)
+    Traceback (most recent call last):
+    TypeError: size must be an integer
+
+``None`` is not accepted:
+
+    >>> bg.integer_validator("value", None)
+    Traceback (most recent call last):
+    TypeError: value must be an integer
+
+A list is not accepted:
+
+    >>> bg.integer_validator("value", [4])
+    Traceback (most recent call last):
+    TypeError: value must be an integer
+
+A tuple is not accepted:
+
+    >>> bg.integer_validator("value", (4,))
+    Traceback (most recent call last):
+    TypeError: value must be an integer
+
+A dictionary is not accepted:
+
+    >>> bg.integer_validator("value", {"a": 1})
+    Traceback (most recent call last):
+    TypeError: value must be an integer
+
+A set is not accepted:
+
+    >>> bg.integer_validator("value", {4})
+    Traceback (most recent call last):
+    TypeError: value must be an integer
+
+The smallest accepted value is 1:
+
+    >>> bg.integer_validator("value", 1)

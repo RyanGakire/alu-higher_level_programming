@@ -1,0 +1,85 @@
+The ``1-my_list`` module
+========================
+
+Importing the class
+-------------------
+
+    >>> MyList = __import__('1-my_list').MyList
+
+``MyList`` is built on top of the built-in ``list``:
+
+    >>> issubclass(MyList, list)
+    True
+
+Creating a list
+---------------
+
+A new ``MyList`` starts empty:
+
+    >>> my_list = MyList()
+    >>> print(my_list)
+    []
+
+Printing an empty list sorted gives an empty list:
+
+    >>> my_list.print_sorted()
+    []
+
+Using ``print_sorted``
+----------------------
+
+The list is printed in ascending order:
+
+    >>> my_list = MyList([1, 4, 2, 3, 5])
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+    >>> my_list.print_sorted()
+    [1, 2, 3, 4, 5]
+
+The original list is not changed:
+
+    >>> print(my_list)
+    [1, 4, 2, 3, 5]
+
+Appending works like on a normal list:
+
+    >>> my_list = MyList()
+    >>> my_list.append(3)
+    >>> my_list.append(1)
+    >>> my_list.append(2)
+    >>> my_list.print_sorted()
+    [1, 2, 3]
+
+Edge cases
+----------
+
+A list with only one element:
+
+    >>> my_list = MyList([7])
+    >>> my_list.print_sorted()
+    [7]
+
+A list that is already sorted stays the same:
+
+    >>> my_list = MyList([1, 2, 3])
+    >>> my_list.print_sorted()
+    [1, 2, 3]
+
+Negative numbers are sorted too:
+
+    >>> my_list = MyList([-3, 1, -10, 0])
+    >>> my_list.print_sorted()
+    [-10, -3, 0, 1]
+
+Repeated numbers are all kept:
+
+    >>> my_list = MyList([2, 1, 2, 1])
+    >>> my_list.print_sorted()
+    [1, 1, 2, 2]
+
+``print_sorted`` returns nothing:
+
+    >>> my_list = MyList([1])
+    >>> print(my_list.print_sorted())
+    [1]
+    None
