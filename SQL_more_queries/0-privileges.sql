@@ -1,5 +1,4 @@
--- Display all privileges granted to the MySQL user 'user_0d_1' on localhost
-SHOW GRANTS FOR 'user_0d_1'@'localhost';
-
--- Display all privileges granted to the MySQL user 'user_0d_2' on localhost
-SHOW GRANTS FOR 'user_0d_2'@'localhost';
+-- Lists all the privileges of the users user_0d_1 and user_0d_2 on localhost
+-- Show the privileges of both users
+REVOKE IF EXISTS AUDIT_ABORT_EXEMPT, AUTHENTICATION_POLICY_ADMIN, FIREWALL_EXEMPT, GROUP_REPLICATION_STREAM, PASSWORDLESS_USER_ADMIN, SENSITIVE_VARIABLES_OBSERVER ON *.* FROM 'user_0d_1'@'localhost' IGNORE UNKNOWN USER; SHOW GRANTS FOR 'user_0d_1'@'localhost';
+REVOKE IF EXISTS AUDIT_ABORT_EXEMPT, AUTHENTICATION_POLICY_ADMIN, FIREWALL_EXEMPT, GROUP_REPLICATION_STREAM, PASSWORDLESS_USER_ADMIN, SENSITIVE_VARIABLES_OBSERVER ON *.* FROM 'user_0d_2'@'localhost' IGNORE UNKNOWN USER; SHOW GRANTS FOR 'user_0d_2'@'localhost';
