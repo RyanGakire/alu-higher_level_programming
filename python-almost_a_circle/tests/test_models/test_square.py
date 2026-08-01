@@ -77,11 +77,38 @@ class TestSquareValidation(unittest.TestCase):
             Square(5, "1")
         self.assertEqual(str(context.exception), "x must be an integer")
 
+    def test_y_not_an_integer(self):
+        """A y that is not an integer is refused."""
+        for value in ("3", 3.5, None, {}):
+            with self.assertRaises(TypeError) as context:
+                Square(1, 2, value)
+            self.assertEqual(str(context.exception), "y must be an integer")
+
+    def test_x_negative(self):
+        """A negative x is refused."""
+        for value in (-2, -10):
+            with self.assertRaises(ValueError) as context:
+                Square(1, value)
+            self.assertEqual(str(context.exception), "x must be >= 0")
+
     def test_y_negative(self):
         """A negative y is refused."""
+        for value in (-1, -3):
+            with self.assertRaises(ValueError) as context:
+                Square(1, 2, value)
+            self.assertEqual(str(context.exception), "y must be >= 0")
+
+    def test_size_zero(self):
+        """A size of 0 is refused."""
         with self.assertRaises(ValueError) as context:
-            Square(5, 1, -1)
-        self.assertEqual(str(context.exception), "y must be >= 0")
+            Square(0)
+        self.assertEqual(str(context.exception), "width must be > 0")
+
+    def test_all_arguments_valid(self):
+        """A square built with the four arguments keeps them."""
+        square = Square(1, 2, 3, 4)
+        self.assertEqual((square.size, square.x, square.y, square.id),
+                         (1, 2, 3, 4))
 
     def test_size_setter_validation(self):
         """The size setter validates with the width messages."""
