@@ -1,0 +1,84 @@
+The ``5-text_indentation`` module
+=================================
+
+Using ``text_indentation``
+--------------------------
+
+Import the function:
+
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Two new lines are printed after each ``.``, ``?`` and ``:``:
+
+    >>> text_indentation("Hello. World?")
+    Hello.
+    <BLANKLINE>
+    World?
+    <BLANKLINE>
+
+    >>> text_indentation("Question: answer.")
+    Question:
+    <BLANKLINE>
+    answer.
+    <BLANKLINE>
+
+Spaces at the beginning and at the end of a line are removed:
+
+    >>> text_indentation("   Hello.     World.   ")
+    Hello.
+    <BLANKLINE>
+    World.
+    <BLANKLINE>
+
+Text without any of those characters is printed as it is:
+
+    >>> text_indentation("No delimiter here"); print("")
+    No delimiter here
+
+Text left after the last delimiter is printed too:
+
+    >>> text_indentation("Hi: there"); print("")
+    Hi:
+    <BLANKLINE>
+    there
+
+Other punctuation does not split the text:
+
+    >>> text_indentation("Hello, world! Still one line"); print("")
+    Hello, world! Still one line
+
+An empty string prints nothing:
+
+    >>> text_indentation("")
+
+A string of spaces prints nothing:
+
+    >>> text_indentation("    ")
+
+New lines in the text are kept:
+
+    >>> text_indentation("a.\nb.")
+    a.
+    <BLANKLINE>
+    b.
+    <BLANKLINE>
+
+A non string argument raises a TypeError:
+
+    >>> text_indentation(12)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+    >>> text_indentation(None)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+    >>> text_indentation(["Hello"])
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+``text`` is required:
+
+    >>> text_indentation()
+    Traceback (most recent call last):
+    TypeError: text_indentation() missing 1 required positional argument: 'text'

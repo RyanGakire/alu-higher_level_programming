@@ -1,0 +1,87 @@
+The ``0-add_integer`` module
+============================
+
+Using ``add_integer``
+---------------------
+
+Import the function:
+
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+Two integers are added normally:
+
+    >>> add_integer(1, 2)
+    3
+
+    >>> add_integer(100, -2)
+    98
+
+    >>> add_integer(-3, -4)
+    -7
+
+``b`` defaults to 98 when it is not given:
+
+    >>> add_integer(2)
+    100
+
+Floats are casted to integers, so they are truncated toward zero:
+
+    >>> add_integer(100.3, -2)
+    98
+
+    >>> add_integer(-1.5, -1.5)
+    -2
+
+    >>> add_integer(2.9)
+    100
+
+Booleans are integers in Python, so they are accepted:
+
+    >>> add_integer(True, 2)
+    3
+
+A non number as first argument raises a TypeError:
+
+    >>> add_integer(None)
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+    >>> add_integer("School", 2)
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+    >>> add_integer([1, 2], 3)
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+A non number as second argument raises a TypeError:
+
+    >>> add_integer(4, "School")
+    Traceback (most recent call last):
+    TypeError: b must be an integer
+
+    >>> add_integer(4, None)
+    Traceback (most recent call last):
+    TypeError: b must be an integer
+
+``a`` is checked before ``b``:
+
+    >>> add_integer("School", None)
+    Traceback (most recent call last):
+    TypeError: a must be an integer
+
+Infinity and NaN cannot be casted to an integer:
+
+    >>> add_integer(float('inf'))
+    Traceback (most recent call last):
+    OverflowError: cannot convert float infinity to integer
+
+    >>> add_integer(2, float('nan'))
+    Traceback (most recent call last):
+    ValueError: cannot convert float NaN to integer
+
+Calling the function without any argument fails:
+
+    >>> add_integer()
+    Traceback (most recent call last):
+    TypeError: add_integer() missing 1 required positional argument: 'a'
