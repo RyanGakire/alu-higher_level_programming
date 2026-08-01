@@ -30,66 +30,98 @@ Floats and negative numbers are accepted:
     >>> lazy_matrix_mul([[-1, 2]], [[3], [-4]])
     array([[-11]])
 
-The exceptions come from NumPy, so only their type is checked here,
-their messages change from one version of NumPy to another.
+The exceptions are raised by NumPy, and their messages change from one
+version of NumPy to another, so only their type is checked below.
 
-Matrices whose sizes do not agree cannot be multiplied:
-
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2]], [[3, 4]])
-    ... except ValueError:
-    ...     print("ValueError")
-    ValueError
-
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3]])
-    ... except ValueError:
-    ...     print("ValueError")
-    ValueError
-
-An empty matrix cannot be multiplied:
-
-    >>> try:
-    ...     lazy_matrix_mul([[]], [[]])
-    ... except ValueError:
-    ...     print("ValueError")
-    ValueError
-
-An element that is not a number is a type error:
-
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, "4"]], [[1, 2], [3, 4]])
-    ... except TypeError:
-    ...     print("TypeError")
-    TypeError
-
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, None]])
-    ... except TypeError:
-    ...     print("TypeError")
-    TypeError
-
-An argument that is not a matrix of numbers is refused:
+``m_a`` is a string, ``m_b`` is a list of lists of numbers:
 
     >>> try:
     ...     lazy_matrix_mul("m_a", [[1, 2], [3, 4]])
     ... except (TypeError, ValueError):
-    ...     print("error")
-    error
+    ...     print("error raised")
+    error raised
+
+``m_a`` is a list of lists of numbers, ``m_b`` is a string:
 
     >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], None)
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], "m_b")
     ... except (TypeError, ValueError):
-    ...     print("error")
-    error
+    ...     print("error raised")
+    error raised
 
-A matrix that is not a rectangle is refused:
+``m_a`` is empty, ``m_b`` is a list of lists of numbers:
+
+    >>> try:
+    ...     lazy_matrix_mul([], [[1, 2], [3, 4]])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+    >>> try:
+    ...     lazy_matrix_mul([[]], [[1, 2], [3, 4]])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+``m_a`` is a list of lists of numbers, ``m_b`` is empty:
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], [])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[]])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+``m_a`` holds something else than numbers:
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, "4"]], [[1, 2], [3, 4]])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+``m_b`` holds something else than numbers:
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, None]])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+The rows of ``m_a`` are not all of the same size:
 
     >>> try:
     ...     lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]])
     ... except (TypeError, ValueError):
-    ...     print("error")
-    error
+    ...     print("error raised")
+    error raised
+
+The rows of ``m_b`` are not all of the same size:
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4, 5]])
+    ... except (TypeError, ValueError):
+    ...     print("error raised")
+    error raised
+
+``m_a`` and ``m_b`` cannot be multiplied:
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2]], [[3, 4]])
+    ... except ValueError:
+    ...     print("ValueError raised")
+    ValueError raised
+
+    >>> try:
+    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3]])
+    ... except ValueError:
+    ...     print("ValueError raised")
+    ValueError raised
 
 Both arguments are required:
 
