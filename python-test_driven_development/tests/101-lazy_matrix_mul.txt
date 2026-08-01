@@ -19,6 +19,13 @@ Matrices of different shapes are multiplied when their sizes agree:
     >>> lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]])
     array([[13, 16]])
 
+    >>> lazy_matrix_mul([[1, 2], [3, 4], [5, 6]], [[1, 2, 3], [4, 5, 6]])
+    array([[ 9, 12, 15],
+           [19, 26, 33],
+           [29, 40, 51]])
+
+A single element matrix works:
+
     >>> lazy_matrix_mul([[2]], [[3]])
     array([[6]])
 
@@ -30,98 +37,83 @@ Floats and negative numbers are accepted:
     >>> lazy_matrix_mul([[-1, 2]], [[3], [-4]])
     array([[-11]])
 
-The exceptions are raised by NumPy, and their messages change from one
-version of NumPy to another, so only their type is checked below.
+An argument that is not a list raises a TypeError:
 
-``m_a`` is a string, ``m_b`` is a list of lists of numbers:
+    >>> lazy_matrix_mul("m_a", [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    TypeError: m_a must be a list
 
-    >>> try:
-    ...     lazy_matrix_mul("m_a", [[1, 2], [3, 4]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], 5)
+    Traceback (most recent call last):
+    TypeError: m_b must be a list
 
-``m_a`` is a list of lists of numbers, ``m_b`` is a string:
+    >>> lazy_matrix_mul(None, None)
+    Traceback (most recent call last):
+    TypeError: m_a must be a list
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], "m_b")
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+An argument that is not a list of lists raises a TypeError:
 
-``m_a`` is empty, ``m_b`` is a list of lists of numbers:
+    >>> lazy_matrix_mul([1, 2, 3], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    TypeError: m_a must be a list of lists
 
-    >>> try:
-    ...     lazy_matrix_mul([], [[1, 2], [3, 4]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [1, 2, 3])
+    Traceback (most recent call last):
+    TypeError: m_b must be a list of lists
 
-    >>> try:
-    ...     lazy_matrix_mul([[]], [[1, 2], [3, 4]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+An empty matrix raises a ValueError:
 
-``m_a`` is a list of lists of numbers, ``m_b`` is empty:
+    >>> lazy_matrix_mul([], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    ValueError: m_a can't be empty
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+    >>> lazy_matrix_mul([[]], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    ValueError: m_a can't be empty
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [])
+    Traceback (most recent call last):
+    ValueError: m_b can't be empty
 
-``m_a`` holds something else than numbers:
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[]])
+    Traceback (most recent call last):
+    ValueError: m_b can't be empty
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, "4"]], [[1, 2], [3, 4]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+An element that is not a number raises a TypeError:
 
-``m_b`` holds something else than numbers:
+    >>> lazy_matrix_mul([[1, 2], [3, "4"]], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    TypeError: m_a should contain only integers or floats
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, None]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, None]])
+    Traceback (most recent call last):
+    TypeError: m_b should contain only integers or floats
 
-The rows of ``m_a`` are not all of the same size:
+A matrix that is not a rectangle raises a TypeError:
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+    >>> lazy_matrix_mul([[1, 2], [3, 4, 5]], [[1, 2], [3, 4]])
+    Traceback (most recent call last):
+    TypeError: each row of m_a must be of the same size
 
-The rows of ``m_b`` are not all of the same size:
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4, 5]])
+    Traceback (most recent call last):
+    TypeError: each row of m_b must be of the same size
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4, 5]])
-    ... except (TypeError, ValueError):
-    ...     print("error raised")
-    error raised
+Matrices whose sizes do not agree cannot be multiplied:
 
-``m_a`` and ``m_b`` cannot be multiplied:
+    >>> lazy_matrix_mul([[1, 2]], [[3, 4]])
+    Traceback (most recent call last):
+    ValueError: m_a and m_b can't be multiplied
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2]], [[3, 4]])
-    ... except ValueError:
-    ...     print("ValueError raised")
-    ValueError raised
+    >>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3]])
+    Traceback (most recent call last):
+    ValueError: m_a and m_b can't be multiplied
 
-    >>> try:
-    ...     lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2, 3]])
-    ... except ValueError:
-    ...     print("ValueError raised")
-    ValueError raised
+``m_a`` is validated before ``m_b``:
+
+    >>> lazy_matrix_mul("m_a", "m_b")
+    Traceback (most recent call last):
+    TypeError: m_a must be a list
 
 Both arguments are required:
 
