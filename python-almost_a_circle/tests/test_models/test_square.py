@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """Unittests for the Square class."""
 import io
+import json
+import os
 import unittest
 from contextlib import redirect_stdout
 from models.base import Base
@@ -278,6 +280,58 @@ class TestSquareToDictionary(unittest.TestCase):
     def test_no_width_key(self):
         """The dictionary of a square holds a size, not a width."""
         self.assertNotIn("width", Square(10).to_dictionary())
+
+
+class TestSquareSaveToFile(unittest.TestCase):
+    """Test the save_to_file class method used from Square."""
+
+    def tearDown(self):
+        """Remove the file written by the tests."""
+        if os.path.exists("Square.json"):
+            os.remove("Square.json")
+
+    def test_none(self):
+        """None saves an empty list."""
+        Square.save_to_file(None)
+        with open("Square.json") as a_file:
+            self.assertEqual(a_file.read(), "[]")
+
+    def test_none_creates_the_file(self):
+        """None still creates the file named after the class."""
+        Square.save_to_file(None)
+        self.assertTrue(os.path.exists("Square.json"))
+
+    def test_empty_list(self):
+        """An empty list saves an empty list."""
+        Square.save_to_file([])
+        with open("Square.json") as a_file:
+            self.assertEqual(a_file.read(), "[]")
+
+    def test_one_square(self):
+        """The file holds the dictionary of the square."""
+        square = Square(10, 7, 2, 8)
+        Square.save_to_file([square])
+        with open("Square.json") as a_file:
+            self.assertEqual(json.load(a_file), [square.to_dictionary()])
+
+    def test_two_squares(self):
+        """The file holds every square given."""
+        Square.save_to_file([Square(1), Square(2)])
+        with open("Square.json") as a_file:
+            self.assertEqual(len(json.load(a_file)), 2)
+
+    def test_overwrite(self):
+        """Saving twice overwrites the file."""
+        Square.save_to_file([Square(1), Square(2)])
+        Square.save_to_file([Square(3)])
+        with open("Square.json") as a_file:
+            self.assertEqual(len(json.load(a_file)), 1)
+
+    def test_type_of_content(self):
+        """The file holds a string."""
+        Square.save_to_file([Square(1)])
+        with open("Square.json") as a_file:
+            self.assertIs(type(a_file.read()), str)
 
 
 class TestSquareDocumentation(unittest.TestCase):
